@@ -1,0 +1,62 @@
+-------------------------------------------------------------------------
+ENUMERATION
+-------------------------------------------------------------------------
+hostname
+uname -a
+cat /proc/version
+cat /etc/issue
+ps , ps -A , ps aux , ps axjf (tree stucture)
+env
+sudo -l
+ls -al
+id
+cat /etc/passwd
+history
+ifconfig , ip route
+netstat -a , -at , -l , -lt , -au , -s , -tp
+---------------------------------------------
+                FIND COMMAND
+---------------------------------------------
+find . -name flag1.txt: find the file named “flag1.txt” in the current directory
+find /home -name flag1.txt: find the file names “flag1.txt” in the /home directory
+find / -type d -name config: find the directory named config under “/”
+find / -type f -perm 0777: find files with the 777 permissions (files readable, writable, and executable by all users)
+find / -perm a=x: find executable files
+find /home -user frank: find all files for user “frank” under “/home”
+find / -mtime 10: find files that were modified in the last 10 days
+find / -atime 10: find files that were accessed in the last 10 day
+find / -cmin -60: find files changed within the last hour (60 minutes)
+find / -amin -60: find files accesses within the last hour (60 minutes)
+find / -size 50M: find files with a 50 MB size
+find / -writable -type d 2>/dev/null : Find world-writeable folders
+find / -perm -222 -type d 2>/dev/null: Find world-writeable folders
+find / -perm -o w -type d 2>/dev/null: Find world-writeable folders
+find / -perm -o x -type d 2>/dev/null
+find / -perm -u=s -type f 2>/dev/null: Find files with the SUID bit, which allows us to run the file with a higher privilege level than the current user.
+-------------------------------------------------------------
+                Automated Enum Tool
+-------------------------------------------------------------
+LinPeas | LinEnum | LES | Linux Smart Enum | Linux Priv Checker
+---------------------------------------------------------------
+sudo -l   --> gtfobins
+
+find / -type f -perm -04000 -ls 2>/dev/null --> gives all files whose SUID/SGID bits are set .
+[eg. SUID bit is set in base64  --> you can  read file -> {base64 <file_path> | base64 -d}]
+
+---------------------------------------------------------------
+                Capabilities
+--------------------------------------------------------------- 
+Capabilities help manage privileges at a more
+granular level. [eg.]if the SOC analyst needs to use a tool that needs to initiate socket connections, a regular
+user would not be able to do that. If the system administrator does not want to give this user higher
+privileges, they can change the capabilities of the binary. As a result, the binary would get through its task
+without needing a higher privilege user. The capabilities man page provides detailed information on its usage
+and options.
+
+getcap -r / 2>/dev/null
+then use gtfobins
+----------------------------------------------------------------
+                Cronjobs
+----------------------------------------------------------------
+cat /etc/crotab
+----------------------------------------------------------------
